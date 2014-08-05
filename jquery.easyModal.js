@@ -45,8 +45,12 @@
             return this.each(function () {
 
                 var o = options,
-                    $overlay = $('<div class="lean-overlay"></div>'),
+                    $overlay = $('div.lean-overlay').first().removeAttr('style'),
                     $modal = $(this);
+
+                if ($overlay.length == 0) {
+                    $overlay = $('<div class="lean-overlay"></div>');
+                }
 
                 $overlay.css({
                     'display': 'none',
