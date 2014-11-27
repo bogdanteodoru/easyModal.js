@@ -45,7 +45,7 @@
             return this.each(function () {
 
                 var o = options,
-                    $overlay = $('div.lean-overlay').first().removeAttr('style'),
+                    $overlay = $('div.lean-overlay').not(':visible').first().removeAttr('style').remove(),
                     $modal = $(this);
 
                 if ($overlay.length == 0) {
@@ -65,7 +65,7 @@
                     'background': o.overlayColor,
                     'opacity': o.overlayOpacity,
                     'overflow': 'auto'
-                }).appendTo(o.overlayParent);
+                }).insertBefore($modal);
 
                 $modal.css({
                     'display': 'none',
@@ -104,12 +104,12 @@
                         $modal.removeClass(o.transitionIn).addClass(o.transitionOut);
                         $modal.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
                             $modal.css('display', 'none');
-                            $overlay.css('display', 'none');
+                            $overlay.css('display', 'none').remove();
                         });
                     }
                     else {
                         $modal.css('display', 'none');
-                        $overlay.css('display', 'none');
+                        $overlay.css('display', 'none').remove();
                     }
                     if (o.onClose && typeof o.onClose === 'function') {
                         // onClose callback receives as argument the modal window
